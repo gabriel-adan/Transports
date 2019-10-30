@@ -11,6 +11,8 @@ namespace Logic.Layer.Contracts
 
         bool Modify(Driver driver);
 
+        bool Remove(Driver driver);
+
         IList<Driver> ToList();
 
         IList<Driver> ToList(int dayOfWeek);

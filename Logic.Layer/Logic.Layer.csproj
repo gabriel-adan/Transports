@@ -35,6 +35,13 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\EDayOfWeek.cs" />
+    <Compile Include="Contracts\ICustomerLogic.cs" />
+    <Compile Include="Contracts\IDriverLogic.cs" />
+    <Compile Include="Contracts\IHourLogic.cs" />
+    <Compile Include="Implementation\CustomerLogic.cs" />
+    <Compile Include="Implementation\DriverLogic.cs" />
+    <Compile Include="Implementation\HourLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

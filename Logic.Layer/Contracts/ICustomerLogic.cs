@@ -5,7 +5,7 @@ namespace Logic.Layer.Contracts
 {
     public interface ICustomerLogic
     {
-        Customer Create(string name);
+        Customer Create(string name, string address);
 
         IList<Customer> ToList();
 

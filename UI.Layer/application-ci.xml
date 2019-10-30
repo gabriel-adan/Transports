@@ -1,4 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <objects>
+  <object id="ModelConfiguration" type="System.Data.ORM.MapCfg.ModelConfiguration, System.Data.ORM">
+    <constructor-arg name="assemblyName" value="Business.Layer"/>
+    <constructor-arg name="folderName" value="Model"/>
+    <constructor-arg name="mapAssemblyName" value="Infraestructure.Layer"/>
+    <constructor-arg name="mapFolderName" value="Map"/>
+  </object>
+  <object id="SQLConfiguration" type="System.Data.ORM.MapCfg.SQLiteConfiguration, System.Data.ORM">
+    <constructor-arg name="connectionString" value="Data Source=Transports.db;Version=3;New=False;Compress=True;FailIfMissing=True;"/>
+    <constructor-arg name="modelConfiguration" ref="ModelConfiguration"/>
+  </object>
+  
+  <object id="DataContext" type="Infraestructure.Layer.DataContext, Infraestructure.Layer">
+    <constructor-arg name="configuration" ref="SQLConfiguration"/>
+  </object>
+  
+  <object id="HourRepository" type="Infraestructure.Layer.Repository.HourRepository, Infraestructure.Layer">
+    <constructor-arg name="context" ref="DataContext"/>
+  </object>
+  <object id="CustomerRepository" type="Infraestructure.Layer.Repository.CustomerRepository, Infraestructure.Layer">
+    <constructor-arg name="context" ref="DataContext"/>
+  </object>
+  <object id="DriverRepository" type="Infraestructure.Layer.Repository.DriverRepository, Infraestructure.Layer">
+    <constructor-arg name="context" ref="DataContext"/>
+  </object>
+  
+  <object id="HourLogic" type="Logic.Layer.Implementation.HourLogic, Logic.Layer">
+    <constructor-arg name="hourRepository" ref="HourRepository"/>
+  </object>
+  <object id="CustomerLogic" type="Logic.Layer.Implementation.CustomerLogic, Logic.Layer">
+    <constructor-arg name="customerRepository" ref="CustomerRepository"/>
+    <constructor-arg name="hourRepository" ref="HourRepository"/>
+  </object>
+  <object id="DriverLogic" type="Logic.Layer.Implementation.DriverLogic, Logic.Layer">
+    <constructor-arg name="driverRepository" ref="DriverRepository"/>
+  </object>
+  
   
 </objects>

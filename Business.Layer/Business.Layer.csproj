@@ -35,11 +35,16 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\ICustomerRepository.cs" />
+    <Compile Include="Contracts\IDriverRepository.cs" />
+    <Compile Include="Contracts\IHourRepository.cs" />
     <Compile Include="Contracts\IRepository.cs" />
+    <Compile Include="Model\Customer.cs" />
+    <Compile Include="Model\Driver.cs" />
+    <Compile Include="Model\Hour.cs" />
+    <Compile Include="NotifyPropertyChanged.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

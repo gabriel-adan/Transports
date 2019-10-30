@@ -3,8 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" WindowState="Maximized">
+        mc:Ignorable="d" WindowState="Maximized" Icon="Images/Icon.ico">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu BorderBrush="Gray" BorderThickness="0 0 0 1">
+            <MenuItem Header="Archivo">
+                <MenuItem x:Name="ItemCustomer" Header="Gestión de Clientes" Click="Customers_Click"/>
+                <MenuItem x:Name="ItemDriver" Header="Gestión de Choferes" Click="Drivers_Click"/>
+                <MenuItem x:Name="ItemHourAssignment" Header="Gestión de Traslados" Click="HourAssignment_Click"/>
+                <MenuItem Header="Salir" Click="Exit_Click"/>
+            </MenuItem>
+            <MenuItem Header="Registro">
+                <MenuItem Header="Registrar Clave de Producto"/>
+            </MenuItem>
+        </Menu>
+        <Frame Grid.Row="1" x:Name="MainContainer" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

@@ -16,9 +16,9 @@ namespace Logic.Layer.Implementation
             this.hourRepository = hourRepository;
         }
 
-        public Customer Create(string name)
+        public Customer Create(string name, string address)
         {
-            return new Customer() { Name = name };
+            return new Customer() { Name = name, Address = address };
         }
 
         public IList<Customer> ToList()

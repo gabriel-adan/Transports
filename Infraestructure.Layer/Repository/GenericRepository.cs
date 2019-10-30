@@ -1,19 +1,25 @@
 ﻿using Business.Layer.Contracts;
+using System.Data.ORM.Context;
+using System.Data.ORM.Queries;
 
 namespace Infraestructure.Layer.Repository
 {
     public class GenericRepository<T> : IRepository<T> where T : class
     {
-        public GenericRepository()
-        {
+        protected readonly DbContext context;
+        protected readonly IDbSet<T> dbSet;
 
+        public GenericRepository(DbContext context)
+        {
+            this.context = context;
+            dbSet = context.Set<T>();
         }
 
         public T Find(object id)
         {
             try
             {
-                throw new System.NotImplementedException();
+                return dbSet.Find(id);
             }
             catch
             {
@@ -25,7 +31,7 @@ namespace Infraestructure.Layer.Repository
         {
             try
             {
-                throw new System.NotImplementedException();
+                return dbSet.Save(entity);
             }
             catch
             {
@@ -37,7 +43,7 @@ namespace Infraestructure.Layer.Repository
         {
             try
             {
-                throw new System.NotImplementedException();
+                return dbSet.Update(entity);
             }
             catch
             {
@@ -49,7 +55,7 @@ namespace Infraestructure.Layer.Repository
         {
             try
             {
-                throw new System.NotImplementedException();
+                return dbSet.Delete(entity);
             }
             catch
             {

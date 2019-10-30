@@ -43,6 +43,18 @@ namespace Logic.Layer.Implementation
             }
         }
 
+        public bool Remove(Driver driver)
+        {
+            try
+            {
+                return driverRepository.Delete(driver);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public IList<Driver> ToList()
         {
             try

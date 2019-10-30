@@ -1,0 +1,250 @@
+﻿<Page x:Class="UI.Layer.View.Customers"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
+      xmlns:logic="clr-namespace:Logic.Layer.Contracts;assembly=Logic.Layer"
+      xmlns:converters="clr-namespace:UI.Layer.Converters"
+      xmlns:validation="clr-namespace:UI.Layer.Validation"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="800" DataContext="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ObjectDataProvider x:Key="DaysOfWeek" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="logic:EDayOfWeek"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+            <converters:HourConverter x:Key="HourConverter"/>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".5*"/>
+            <ColumnDefinition Width=".5*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Listado de Clientes" FontSize="15" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Center"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".1*" MinWidth="60"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Buscar: " Margin="5 0" FontSize="15" FontWeight="Bold"/>
+            <TextBox Grid.Column="1" x:Name="TxtSearch" Height="24" VerticalAlignment="Center" TextChanged="TxtSearch_TextChanged"/>
+        </Grid>
+        <ListBox Grid.Row="2" Grid.RowSpan="3" x:Name="CustomerList" HorizontalContentAlignment="Stretch" SelectedItem="{Binding CustomerSelected}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Gray" BorderThickness="1" Margin="-3 0" CornerRadius="3">
+                        <TextBlock Text="{Binding Name}" Margin="5 3"/>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Modificar" Command="{Binding CustomerEditCommand}"/>
+                    <MenuItem Header="Eliminar" Command="{Binding CustomerDeleteCommand}"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+        <Grid Grid.Row="2" Grid.RowSpan="3" Grid.Column="1" Margin="5 0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock Text="Edicion de datos del Cliente" FontSize="15" FontWeight="Bold" TextAlignment="Center"/>
+                <Separator/>
+                <TextBlock Text="Nombre" Margin="0 5"/>
+                <TextBox x:Name="TxtName" Height="24">
+                    <TextBox.Text>
+                        <Binding Path="CustomerSelected.Name" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validation:StringEmptyValidation ValidatesOnTargetUpdated="True"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBlock Text="Dirección" Margin="0 10 0 5"/>
+                <TextBox Text="{Binding CustomerSelected.Address, UpdateSourceTrigger=PropertyChanged}" Height="24"/>
+                <Button Margin="0 10 0 0" Height="24" Command="{Binding CustomerUpdateCommand}" Width="100">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/UI.Layer;component/Images/icon-update.ico" Width="15"/>
+                        <TextBlock Text="Modificar" FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
+                <Button Margin="0 10 0 5" Height="24" Command="{Binding CustomerDeleteCommand}" Width="100">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/UI.Layer;component/Images/icon-delete.ico" Width="15"/>
+                        <TextBlock Text="Eliminar" FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
+                <Button Margin="0 10 0 5" Height="24" Command="{Binding CustomerCancelCommand}" Width="100">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/UI.Layer;component/Images/icon-cancel.ico" Width="15"/>
+                        <TextBlock Text="Cancelar" FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="1">
+                <TextBlock Text="Datos del Nuevo Cliente" FontSize="15" FontWeight="Bold" TextAlignment="Center"/>
+                <Separator/>
+                <TextBlock Text="Nombre" Margin="0 5"/>
+                <TextBox Height="24">
+                    <TextBox.Text>
+                        <Binding Path="CustomerName" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validation:StringEmptyValidation ValidatesOnTargetUpdated="True"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBlock Text="Dirección" Margin="0 10 0 5"/>
+                <TextBox Text="{Binding CustomerAddress, UpdateSourceTrigger=PropertyChanged}" Height="24"/>
+                <Button Margin="0 10 0 0" Height="24" Command="{Binding AddCustomerCommand}" Width="100">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/UI.Layer;component/Images/add.ico" Width="15"/>
+                        <TextBlock Text="Agregar" FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
+                <Button Margin="0 10 0 5" Height="24" Command="{Binding CustomerCancelCommand}" Width="100">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/UI.Layer;component/Images/icon-cancel.ico" Width="15"/>
+                        <TextBlock Text="Cancelar" FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="Horarios de " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+        <DataGrid Grid.Row="2" Grid.Column="2" AutoGenerateColumns="False" CanUserDeleteRows="False" CanUserAddRows="False" ItemsSource="{Binding CustomerSelected.Hours}" SelectedItem="{Binding HourSelected, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="DIA" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox Grid.Column="3" ItemsSource="{Binding Source={StaticResource DaysOfWeek}}" SelectedIndex="{Binding DayOfWeek, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="LUGAR" Width="*" Binding="{Binding Place, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="ENTRADA" Width="*" Binding="{Binding EntryTime, Converter={StaticResource HourConverter}, UpdateSourceTrigger=LostFocus}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="SALIDA" Width="*" Binding="{Binding ExitTime, Converter={StaticResource HourConverter}, UpdateSourceTrigger=LostFocus}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding Path=DataContext.UpdateHourCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Page}}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/UI.Layer;component/Images/icon-update.ico" Width="15"/>
+                                    <TextBlock Text="Modificar"/>
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="3" Grid.Column="2" Grid.RowSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="45"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.ColumnSpan="4" Text="Nuevo Horario" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"/>
+            <StackPanel Grid.Row="1">
+                <TextBlock Text="Dia de la Semana"/>
+                <ComboBox x:Name="CboxDayOfWeek" Margin="0 2.5" ItemsSource="{Binding Source={StaticResource DaysOfWeek}}" SelectedIndex="{Binding NewHour.DayOfWeek}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="1">
+                <TextBlock Text="Destino" Margin="5 0"/>
+                <TextBox x:Name="TxtPlace" Height="22" Margin="5 3">
+                    <TextBox.Text>
+                        <Binding Path="NewHour.Place" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validation:StringEmptyValidation ValidatesOnTargetUpdated="True"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Grid.Row="1">
+                <TextBlock Text="Hora de Entrada" Margin="5 0"/>
+                <TextBox Height="22" Margin="5 3" x:Name="TxtEntryTime" TextAlignment="Center">
+                    <TextBox.Text>
+                        <Binding Path="NewHour.EntryTime" Converter="{StaticResource HourConverter}" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validation:HourValidation ValidatesOnTargetUpdated="True"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+            <StackPanel Grid.Column="3" Grid.Row="1">
+                <TextBlock Text="Hora de Salida" Margin="5 0"/>
+                <TextBox Height="22" Margin="5 3" x:Name="TxtExitTime" TextAlignment="Center">
+                    <TextBox.Text>
+                        <Binding Path="NewHour.ExitTime" Converter="{StaticResource HourConverter}" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validation:HourValidation ValidatesOnTargetUpdated="True"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </StackPanel>
+            <Button Grid.Row="2" Grid.Column="2" Margin="5" Command="{Binding Path=DataContext.DeleteHourCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Page}}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/UI.Layer;component/Images/icon-delete.ico" Width="15"/>
+                    <TextBlock Text="Eliminar" FontWeight="Bold"/>
+                </StackPanel>
+            </Button>
+            <Button Grid.Row="2" Grid.Column="3" Margin="5" Command="{Binding AddHourCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/UI.Layer;component/Images/add.ico" Height="15"/>
+                    <TextBlock Text="Agregar horario" FontWeight="Bold"/>
+                </StackPanel>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="False"/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=TxtPlace, Path=(Validation.HasError)}" Value="False"/>
+                                    <Condition Binding="{Binding ElementName=TxtEntryTime, Path=(Validation.HasError)}" Value="False"/>
+                                    <Condition Binding="{Binding ElementName=TxtExitTime, Path=(Validation.HasError)}" Value="False"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="True"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+    </Grid>
+</Page>
