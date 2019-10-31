@@ -17,7 +17,7 @@
                 <MenuItem Header="Salir" Click="Exit_Click"/>
             </MenuItem>
             <MenuItem Header="Registro">
-                <MenuItem Header="Registrar Clave de Producto"/>
+                <MenuItem x:Name="ItemLicense" Header="Registrar Clave de Producto" Click="Registry_License_Click"/>
             </MenuItem>
         </Menu>
         <Frame Grid.Row="1" x:Name="MainContainer" NavigationUIVisibility="Hidden"/>

@@ -5,5 +5,8 @@
     <Setting Name="ConnectionString" Type="System.String" Scope="User">
       <Value Profile="(Default)">Data Source=Transports.db;Version=3;New=False;Compress=True;FailIfMissing=True;</Value>
     </Setting>
+    <Setting Name="KeyFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

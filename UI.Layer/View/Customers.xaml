@@ -80,19 +80,19 @@
                 <TextBox Text="{Binding CustomerSelected.Address, UpdateSourceTrigger=PropertyChanged}" Height="24"/>
                 <Button Margin="0 10 0 0" Height="24" Command="{Binding CustomerUpdateCommand}" Width="100">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/UI.Layer;component/Images/icon-update.ico" Width="15"/>
+                        <Image Source="/UI.Layer;component/Images/icon-update.ico" Width="15" Margin="0 0 5 0"/>
                         <TextBlock Text="Modificar" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
                 <Button Margin="0 10 0 5" Height="24" Command="{Binding CustomerDeleteCommand}" Width="100">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/UI.Layer;component/Images/icon-delete.ico" Width="15"/>
+                        <Image Source="/UI.Layer;component/Images/icon-delete.ico" Width="15" Margin="0 0 5 0"/>
                         <TextBlock Text="Eliminar" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
                 <Button Margin="0 10 0 5" Height="24" Command="{Binding CustomerCancelCommand}" Width="100">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/UI.Layer;component/Images/icon-cancel.ico" Width="15"/>
+                        <Image Source="/UI.Layer;component/Images/icon-cancel.ico" Width="15" Margin="0 0 5 0"/>
                         <TextBlock Text="Cancelar" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
@@ -114,19 +114,19 @@
                 <TextBox Text="{Binding CustomerAddress, UpdateSourceTrigger=PropertyChanged}" Height="24"/>
                 <Button Margin="0 10 0 0" Height="24" Command="{Binding AddCustomerCommand}" Width="100">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/UI.Layer;component/Images/add.ico" Width="15"/>
+                        <Image Source="/UI.Layer;component/Images/add.ico" Width="15" Margin="0 0 5 0"/>
                         <TextBlock Text="Agregar" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
                 <Button Margin="0 10 0 5" Height="24" Command="{Binding CustomerCancelCommand}" Width="100">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/UI.Layer;component/Images/icon-cancel.ico" Width="15"/>
+                        <Image Source="/UI.Layer;component/Images/icon-cancel.ico" Width="15" Margin="0 0 5 0"/>
                         <TextBlock Text="Cancelar" FontWeight="Bold"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
         </Grid>
-        <TextBlock Grid.Row="1" Grid.Column="2" Text="Horarios de " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding CustomerSelected.Name, StringFormat='{}Horarios de {0}'}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
         <DataGrid Grid.Row="2" Grid.Column="2" AutoGenerateColumns="False" CanUserDeleteRows="False" CanUserAddRows="False" ItemsSource="{Binding CustomerSelected.Hours}" SelectedItem="{Binding HourSelected, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="DIA" Width="*">
@@ -198,7 +198,7 @@
                 <TextBlock Text="Hora de Entrada" Margin="5 0"/>
                 <TextBox Height="22" Margin="5 3" x:Name="TxtEntryTime" TextAlignment="Center">
                     <TextBox.Text>
-                        <Binding Path="NewHour.EntryTime" Converter="{StaticResource HourConverter}" UpdateSourceTrigger="PropertyChanged">
+                        <Binding Path="NewHour.EntryTime" Converter="{StaticResource HourConverter}" UpdateSourceTrigger="LostFocus">
                             <Binding.ValidationRules>
                                 <validation:HourValidation ValidatesOnTargetUpdated="True"/>
                             </Binding.ValidationRules>
@@ -210,7 +210,7 @@
                 <TextBlock Text="Hora de Salida" Margin="5 0"/>
                 <TextBox Height="22" Margin="5 3" x:Name="TxtExitTime" TextAlignment="Center">
                     <TextBox.Text>
-                        <Binding Path="NewHour.ExitTime" Converter="{StaticResource HourConverter}" UpdateSourceTrigger="PropertyChanged">
+                        <Binding Path="NewHour.ExitTime" Converter="{StaticResource HourConverter}" UpdateSourceTrigger="LostFocus">
                             <Binding.ValidationRules>
                                 <validation:HourValidation ValidatesOnTargetUpdated="True"/>
                             </Binding.ValidationRules>
@@ -220,13 +220,13 @@
             </StackPanel>
             <Button Grid.Row="2" Grid.Column="2" Margin="5" Command="{Binding Path=DataContext.DeleteHourCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Page}}">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/UI.Layer;component/Images/icon-delete.ico" Width="15"/>
+                    <Image Source="/UI.Layer;component/Images/icon-delete.ico" Width="15" Margin="0 0 5 0"/>
                     <TextBlock Text="Eliminar" FontWeight="Bold"/>
                 </StackPanel>
             </Button>
             <Button Grid.Row="2" Grid.Column="3" Margin="5" Command="{Binding AddHourCommand}">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/UI.Layer;component/Images/add.ico" Height="15"/>
+                    <Image Source="/UI.Layer;component/Images/add.ico" Height="15" Margin="0 0 5 0"/>
                     <TextBlock Text="Agregar horario" FontWeight="Bold"/>
                 </StackPanel>
                 <Button.Style>

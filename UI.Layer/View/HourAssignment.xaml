@@ -39,6 +39,7 @@
         <DataGrid Background="White" Margin="0 0 0 5" Grid.Row="1" Grid.ColumnSpan="3" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False" ItemsSource="{Binding HourList}" SelectedItem="{Binding HourSelected}">
             <DataGrid.Columns>
                 <DataGridTextColumn IsReadOnly="True" Header="NOMBRE" Width="*" Binding="{Binding Customer.Name}"/>
+                <DataGridTextColumn IsReadOnly="True" Header="DIRECCION" Width="*" Binding="{Binding Customer.Address}"/>
                 <DataGridTextColumn IsReadOnly="True" Header="LUGAR" Width="*" Binding="{Binding Place}"/>
                 <DataGridTextColumn IsReadOnly="True" Header="HORA ENTRADA" Width="100" Binding="{Binding EntryTime, Converter={StaticResource HourConverter}}">
                     <DataGridTextColumn.ElementStyle>
@@ -74,7 +75,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="60" IsReadOnly="True">
+                <DataGridTemplateColumn Header="ESTADO" Width="60" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Command="{Binding Path=DataContext.CancelTransportCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Page}}" CommandParameter="{Binding}">
@@ -122,7 +123,12 @@
             </StatusBarItem>
             <Separator/>
             <StatusBarItem HorizontalAlignment="Right">
-                <Button Height="28" Padding="10 0" Click="Transports_Click">Ver Asignaciones</Button>
+                <Button Height="28" Padding="10 0" Click="Transports_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/UI.Layer;component/Images/grid.png" Height="15" Margin="0 0 5 0"/>
+                        <TextBlock Text="Ver Asignaciones" FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
             </StatusBarItem>
         </StatusBar>
     </Grid>

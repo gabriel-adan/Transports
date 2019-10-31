@@ -34,5 +34,17 @@ namespace UI.Layer.Properties {
                 this["ConnectionString"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string KeyFilePath {
+            get {
+                return ((string)(this["KeyFilePath"]));
+            }
+            set {
+                this["KeyFilePath"] = value;
+            }
+        }
     }
 }
